@@ -18,6 +18,10 @@ export class Choice {
         return this._level;
     }
 
+    public get image() {
+        return this._imagename ? `/public/stratimages/${this._imagename}.png` : undefined;
+    }
+
     public get nextChoices() {
         return [...this._nextChoices];
     }
@@ -36,7 +40,7 @@ export class Choice {
 
     private parent?: Choice;
 
-    constructor(label: string, description: string, private _checkboxes: string[] = []) {
+    constructor(label: string, description: string, private _checkboxes: string[] = [], private _imagename: string = '') {
         this.id = nextId();
         this.label = label;
         this.description = description;

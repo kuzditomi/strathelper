@@ -23,6 +23,8 @@ export const Details: React.FC<DetailsProps> = ({ choice }) => {
                     </li>
                 ))}
             </ul>
+
+            {choice.image ? <img height={200} src={choice.image} alt="hello"/> : null}
         </main>
     );
 }
