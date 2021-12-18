@@ -66,7 +66,7 @@ directionalChoice
                 '50-75% cél profit, inkább hamarabb lezárni ha lehet',
                 '1 ITM long Put',
                 '2 OTM short Put near ATM',
-                '1 OTM long Put'
+                '1 OTM long Put (skip 1 strike)'
             ], 'put-broken-butterfly'))
             .addNextChoice(new Choice('Jade lizard', 'eső IV, emelkedő stock', [
                 '30-60nap',
@@ -116,12 +116,35 @@ directionalChoice
         )
         .addNextChoice(new Choice('Magas IV', '')
             .addNextChoice(new Choice('Call credit spread', '', [
+                'magasabb vola',
+                '30-60nap',
+                '3-5% balance',
+                '50% cél elég az irány riziko miatt',
+                'OTM short call',
+                'OTM long call higher strike'
             ], 'vertical-bear-spread'))
-            .addNextChoice(new Choice('Short naked call', '', [
+            .addNextChoice(new Choice('Short naked call', '!!!!!!!!!!!!!!! fedezetlen !!!!!!!!!!!!!!!', [
+                'OTM short call (lehetőleg távolabb)',
+                '30-60 nap',
+                '1-2% initial margin',
+                '50% már elég'
             ], 'short-call'))
-            .addNextChoice(new Choice('Call broken wing butterfly', '', [
+            .addNextChoice(new Choice('Call broken wing butterfly', 'credit with no downside risk', [
+                '30-60nap',
+                '3-5% balance',
+                '75% célár, had dolgozzon',
+                '1 ITM long Call',
+                '2 OTM short Call near ATM',
+                '1 long OTM Call (skip 1 strike)'
             ], 'call-broken-butterfly'))
-            .addNextChoice(new Choice('Reverse jade lizzard', '', [
+            .addNextChoice(new Choice('Reverse jade lizzard', '!!!! fedezetlen. eső IV, eső stock', [
+                'IV esik ha a papir is',
+                '30-60nap',
+                '1-2% initial margin',
+                '50% célár',
+                'OTM short Call',
+                'OTM short Put',
+                'OTM long Put lower price'
             ], 'reverse-jade-lizard'))
         )
     )
