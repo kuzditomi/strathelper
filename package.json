@@ -1,6 +1,7 @@
 {
   "name": "option-helper",
   "version": "0.0.0",
+  "homepage": "http://kuzditomi.github.io/strathelper", 
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
