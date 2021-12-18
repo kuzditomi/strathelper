@@ -8,14 +8,18 @@ export class Choice {
     private _level: number = 0;
     private _isSelected: boolean = false;
     private _callbacks: any[] = [];
-    private nextChoices: Choice[];
+    private _nextChoices: Choice[];
 
     public get isLeaf() {
-        return this.nextChoices.length === 0;
+        return this._nextChoices.length === 0;
     }
 
     public get level() {
         return this._level;
+    }
+
+    public get nextChoices() {
+        return [...this._nextChoices];
     }
 
     public get checkboxes() {
@@ -36,7 +40,7 @@ export class Choice {
         this.id = nextId();
         this.label = label;
         this.description = description;
-        this.nextChoices = [];
+        this._nextChoices = [];
     }
 
     onStateChange(callback: (newState: boolean) => void): () => void {
@@ -59,14 +63,14 @@ export class Choice {
         this.adjustLevels(choice);
 
         choice.setParent(this);
-        this.nextChoices.push(choice);
+        this._nextChoices.push(choice);
         return this;
     }
 
     select() {
         this.isSelected = true;
         this.parent?.escalateChangeUpwards(this.id);
-        this.nextChoices.forEach(c => c.escalateChangeDownwards());
+        this._nextChoices.forEach(c => c.escalateChangeDownwards());
     }
 
     private escalateChangeUpwards(id: number) {
@@ -74,7 +78,7 @@ export class Choice {
             this.parent?.escalateChangeUpwards(this.id);
         }
 
-        this.nextChoices.forEach(c => {
+        this._nextChoices.forEach(c => {
             if (c.id !== id) {
                 c.escalateChangeDownwards();
             }
@@ -84,11 +88,11 @@ export class Choice {
     private escalateChangeDownwards() {
         this.isSelected = false;
 
-        this.nextChoices.forEach(c => c.escalateChangeDownwards());
+        this._nextChoices.forEach(c => c.escalateChangeDownwards());
     }
 
     private adjustLevels(choice: Choice) {
         choice._level++;
-        choice.nextChoices.forEach(c => { this.adjustLevels(c) })
+        choice._nextChoices.forEach(c => { this.adjustLevels(c) })
     }
 }
