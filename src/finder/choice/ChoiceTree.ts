@@ -1,12 +1,11 @@
 import { Choice } from "./choice.models";
 
 const directionalChoice = new Choice('Irány elképzelés', '');
-const levelChoice: Choice = new Choice('Szint tartó', '');
 const nonDirectional: Choice = new Choice('Iránymentes', '');
 
 directionalChoice
     .addNextChoice(new Choice('Emelkedés', '',)
-        .addNextChoice(new Choice('Alacsony vola', '')
+        .addNextChoice(new Choice('Alacsony IV', '')
             .addNextChoice(new Choice('Call debit spread', '', [
                 '60-90 nap',
                 'alacsony ivr, várhatóan marad is',
@@ -14,7 +13,7 @@ directionalChoice
                 '25-50% cél profit',
                 'ITM long Call',
                 'OTM short Call',
-            ], 'call-debit-spread'))
+            ], 'bull-vertical-spread'))
             .addNextChoice(new Choice('Call calendar spread', 'debit', [
                 '20-30 nap front month',
                 'alacsony ivr front month, magasabb back month',
@@ -40,21 +39,49 @@ directionalChoice
                 '1 OTM long Put back month lower price',
             ], 'put-diagonal-spread'))
         )
-        .addNextChoice(new Choice('Magas vola', 'Bull call spread', [
-            'alacsony vola',
-            'ATM long call',
-            'OTM short call',
-        ]))
+        .addNextChoice(new Choice('Magas IV', '')
+            .addNextChoice(new Choice('Put credit spread', '', [
+                '30-60 nap',
+                'közép-magas IV',
+                'lehet magasabb 2-5% balance',
+                '50% cél',
+                'OTM short Put',
+                'OTM long Put lower price',
+            ], 'bull-vertical-spread'))
+            .addNextChoice(new Choice('Short naked put', '!!!!!!!!!!! fedezetlen !!!!!!!!!!', [
+                'nem baj, ha kapok ilyen stockot',
+                '30-60 nap',
+                'magas IV (érdemes HV-t hozzá nézni)',
+                'óvatos 1-2% kezdő margin',
+                'OTM short Put',
+                '50%-nál elhozni, vagy rollolni'
+            ], 'short-put'))
+            .addNextChoice(new Choice('Put Broken Wing Butterfly', 'credit with no risk to the upside', [
+                '30-60 nap',
+                'some credit at least',
+                'magas IV',
+                'lehet bátrabb 3-5%',
+                '50-75% cél profit, inkább hamarabb lezárni ha lehet',
+                '1 ITM long Put',
+                '2 OTM short Put near ATM',
+                '1 OTM long Put'
+            ], 'put-broken-butterfly'))
+            .addNextChoice(new Choice('Jade lizard', 'eső IV, emelkedő stock', [
+                '30-60nap',
+                'óvatos 1-2% initial margin',
+                '50% körüli cél profit',
+                'OTM short Put',
+                'OTM short call',
+                'OTM long call higher price',
+            ], 'jade-lizzard'))
+        )
     )
     .addNextChoice(new Choice('Esés', 'Bear put spread', [
         'alacsony vola',
         'ATM long put',
         'OTM short put',
-    ]));
+    ]))
 
-levelChoice
-    .addNextChoice(new Choice('Emelkedés', ''))
-    .addNextChoice(new Choice('Esés', ''))
 
 nonDirectional
     .addNextChoice(new Choice('Inkább emelkedik', 'Jade lizard', [
@@ -64,12 +91,10 @@ nonDirectional
 
 new Choice('faketop', '')
     .addNextChoice(directionalChoice)
-    .addNextChoice(levelChoice)
     .addNextChoice(nonDirectional);
 
 const mainChoices = [
     directionalChoice,
-    levelChoice,
     nonDirectional
 ];
 
