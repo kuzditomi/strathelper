@@ -21,7 +21,9 @@ directionalChoice
                 '25-50% cél profit',
                 'OTM short Call front month',
                 'OTM long Call back month same strike',
-            ], 'call-calendar-spread'))
+                'összehasonlítottam a PUT változattal',
+                'SPY-ra inkább PUT-ot',
+            ], 'calendar-spread'))
             .addNextChoice(new Choice('Call (Ratio) backspread', 'nagy mozgást várok', [
                 '60-90 nap front month',
                 'alacsony ivr front month, magasabb back month',
@@ -76,11 +78,44 @@ directionalChoice
             ], 'jade-lizzard'))
         )
     )
-    .addNextChoice(new Choice('Esés', 'Bear put spread', [
-        'alacsony vola',
-        'ATM long put',
-        'OTM short put',
-    ]))
+    .addNextChoice(new Choice('Esés', '')
+        .addNextChoice(new Choice('Alacsony IV', '')
+            .addNextChoice(new Choice('Put debit spread', '', [
+                '60-90 nap',
+                'nem csökken tovább IV',
+                '1% balance',
+                '25-50% target profit',
+                'ITM long Put',
+                'OTM short Put'
+            ], 'vertical-bull-spread'))
+            .addNextChoice(new Choice('Put calendar spread', 'debit', [
+                'ATM vagy kicsit magasabb strike',
+                '20+ front month',
+                '1% balance',
+                'front month magasabb IV mint back month',
+                'korai profit cél 25-50%',
+                'OTM short Put front month',
+                'OTM long Put back month same strike',
+            ], 'calendar-spread'))
+            .addNextChoice(new Choice('Put (Ratio) backspread', '1:2 vagy 2:3', [
+                '60-90 nap',
+                'alacsonyabb IV',
+                '1% balance',
+                '25% profit elég, ha nem hoz hamar többet',
+                '1 ATM short Put',
+                '2 OTM long Put lower strike',
+            ], 'put-ratio-backspread'))
+            .addNextChoice(new Choice('Call diagonal spread', '', [
+                '20+ nap front month',
+                '1% balance',
+                '25-50% cél',
+                'front month magasbb IV mint back month',
+                '1 OTM short Call front month',
+                '1 OTM long Call back month higher strike',
+            ], 'call-diagonal-spread'))
+
+        )
+    )
 
 
 nonDirectional
