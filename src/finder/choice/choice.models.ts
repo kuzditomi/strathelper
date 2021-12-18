@@ -19,7 +19,7 @@ export class Choice {
     }
 
     public get image() {
-        return this._imagename ? `/public/stratimages/${this._imagename}.png` : undefined;
+        return this._imagename ? `/stratimages/${this._imagename}.png` : undefined;
     }
 
     public get nextChoices() {
