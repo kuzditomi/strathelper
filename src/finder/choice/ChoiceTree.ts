@@ -15,14 +15,30 @@ directionalChoice
                 'ITM long Call',
                 'OTM short Call',
             ], 'call-debit-spread'))
-            .addNextChoice(new Choice('Call calendar spread', '', [
+            .addNextChoice(new Choice('Call calendar spread', 'debit', [
                 '20-30 nap front month',
                 'alacsony ivr front month, magasabb back month',
                 'kis méret <= 1%',
                 '25-50% cél profit',
-                'ITM long Call',
-                'OTM short Call',
-            ]))
+                'OTM short Call front month',
+                'OTM long Call back month same strike',
+            ], 'call-calendar-spread'))
+            .addNextChoice(new Choice('Call (Ratio) backspread', 'nagy mozgást várok', [
+                '60-90 nap front month',
+                'alacsony ivr front month, magasabb back month',
+                'kis méret <= 1%',
+                'early profit 25-50%',
+                '1 ATM short Call',
+                '2 OTM long Call higher strike',
+            ], 'call-ratio-backspread'))
+            .addNextChoice(new Choice('Put diagonal spread', 'debit', [
+                '20+ nap front month',
+                'alacsony ivr front month, még alacsonyabb back month',
+                'kis méret <= 1%',
+                'early profit 25-50%',
+                '1 OTP short Put front month',
+                '1 OTM long Put back month lower price',
+            ], 'put-diagonal-spread'))
         )
         .addNextChoice(new Choice('Magas vola', 'Bull call spread', [
             'alacsony vola',
