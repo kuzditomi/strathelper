@@ -4,7 +4,7 @@
   "homepage": "http://kuzditomi.github.io/strathelper", 
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "tsc && vite build --base=./",
     "preview": "vite preview"
   },
   "dependencies": {
