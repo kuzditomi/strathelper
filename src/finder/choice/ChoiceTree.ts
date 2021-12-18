@@ -13,7 +13,7 @@ directionalChoice
                 '25-50% cél profit',
                 'ITM long Call',
                 'OTM short Call',
-            ], 'bull-vertical-spread'))
+            ], 'vertical-bull-spread'))
             .addNextChoice(new Choice('Call calendar spread', 'debit', [
                 '20-30 nap front month',
                 'alacsony ivr front month, magasabb back month',
@@ -49,7 +49,7 @@ directionalChoice
                 '50% cél',
                 'OTM short Put',
                 'OTM long Put lower price',
-            ], 'bull-vertical-spread'))
+            ], 'vertical-bull-spread'))
             .addNextChoice(new Choice('Short naked put', '!!!!!!!!!!! fedezetlen !!!!!!!!!!', [
                 'nem baj, ha kapok ilyen stockot',
                 '30-60 nap',
@@ -87,7 +87,7 @@ directionalChoice
                 '25-50% target profit',
                 'ITM long Put',
                 'OTM short Put'
-            ], 'vertical-bull-spread'))
+            ], 'vertical-bear-spread'))
             .addNextChoice(new Choice('Put calendar spread', 'debit', [
                 'ATM vagy kicsit magasabb strike',
                 '20+ front month',
@@ -113,7 +113,16 @@ directionalChoice
                 '1 OTM short Call front month',
                 '1 OTM long Call back month higher strike',
             ], 'call-diagonal-spread'))
-
+        )
+        .addNextChoice(new Choice('Magas IV', '')
+            .addNextChoice(new Choice('Call credit spread', '', [
+            ], 'vertical-bear-spread'))
+            .addNextChoice(new Choice('Short naked call', '', [
+            ], 'short-call'))
+            .addNextChoice(new Choice('Call broken wing butterfly', '', [
+            ], 'call-broken-butterfly'))
+            .addNextChoice(new Choice('Reverse jade lizzard', '', [
+            ], 'reverse-jade-lizard'))
         )
     )
 
