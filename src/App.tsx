@@ -6,7 +6,7 @@ import { Menu } from './menu';
 function App() {
   return (
     <div className="app">
-      <BrowserRouter>
+      <BrowserRouter basename="/strathelper">
         <Menu />
         <Routes>
           <Route path="/calculator" element={<p>hello</p>} />
