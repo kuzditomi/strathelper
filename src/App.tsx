@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css'
-import { Choice } from './choice/choice.models';
-import { Details } from './details.component';
-import { Tree } from './tree.component';
+import { Finder } from './finder/finder.component';
+import { Menu } from './menu';
 
 function App() {
-  const [choice, setChoice] = useState<Choice>();
-
   return (
     <div className="app">
-      <Tree onChoiceSelected={(c) => { setChoice(c) }} />
-      <Details choice={choice} />
+      <BrowserRouter>
+        <Menu />
+        <Routes>
+          <Route path="/calculator" element={<p>hello</p>} />
+          <Route path="/" element={<Finder />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   )
 }

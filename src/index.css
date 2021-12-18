@@ -14,30 +14,19 @@ code {
 
 .app {
   display: flex;
+  flex-direction: column;
 }
 
-aside {
-  border-right: 1px solid black;
-  padding-right: 20px;
+
+.menu {
+  display: flex;
+  border-bottom: 1px solid black;
 }
 
-.choice {
-  cursor: pointer;
+.menu > *{
+  padding: 5px;
 }
 
-.selected.choice {
-  font-weight: bold;
-}
-
-.level {
-  padding-left: 20px;
-}
-
-main {
-  padding: 20px;
-}
-
-ul li {
-  padding: 0;
-  list-style: none;
+a:visited {
+  color: black;
 }

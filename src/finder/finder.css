@@ -1,0 +1,29 @@
+.finder {
+    display: flex;
+}
+
+aside {
+  border-right: 1px solid black;
+  padding-right: 20px;
+}
+
+.choice {
+  cursor: pointer;
+}
+
+.selected.choice {
+  font-weight: bold;
+}
+
+.level {
+  padding-left: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+ul li {
+  padding: 0;
+  list-style: none;
+}
