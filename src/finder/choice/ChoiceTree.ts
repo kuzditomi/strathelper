@@ -1,7 +1,7 @@
 import { Choice } from "./choice.models";
 
 const directionalChoice = new Choice('Irány elképzelés', '');
-const nonDirectional: Choice = new Choice('Iránymentes', '');
+const neurtalChoice: Choice = new Choice('Iránymentes', '');
 
 directionalChoice
     .addNextChoice(new Choice('Emelkedés', '',)
@@ -150,19 +150,64 @@ directionalChoice
     )
 
 
-nonDirectional
-    .addNextChoice(new Choice('Inkább emelkedik', 'Jade lizard', [
-        'OTM short put',
-        'OTM bear call spread',
-    ]))
+neurtalChoice
+    .addNextChoice(new Choice('Alacsony IV', 'Ilyet ne csinálj inkább :(')
+    )
+    .addNextChoice(new Choice('Magas IV', '')
+        .addNextChoice(new Choice('Short straddle', '!!!!! fedezetlen', [
+            'nincs más fedezetlen pozi nyitva',
+            'magas IV, ennek az esésére is számítok',
+            '30-60nap',
+            '1-2% initial margin',
+            '25% jó cél',
+            'ATM short Put',
+            'ATM short Call'
+        ], 'short-straddle'))
+        .addNextChoice(new Choice('Short strangle', '!!!!! fedezetlen', [
+            'nincs más fedezetlen pozi nyitva',
+            'tényleg magas IV',
+            '2SD inkább',
+            'csak nagyon likvid termékre, indexek inkább',
+            '40+ nap',
+            '1-2% initial margin',
+            '50% jó cél, de korábban is lehet, vagy rollolni',
+            'ATM short Put',
+            'ATM short Call'
+        ], 'short-strangle'))
+        .addNextChoice(new Choice('Iron Condor', '', [
+            'magas de nem túl magas IV',
+            '70% körül (1SD)',
+            'likvid termékre érdemes',
+            '30-60 nap',
+            '3-5% balance',
+            '50% jó cél',
+            'OTM long Put lower price',
+            'OTM short Put',
+            'OTM short Call',
+            'OTM long Call higher price'
+        ], 'short-strangle'))
+        .addNextChoice(new Choice('Iron Butterfly', '', [
+            'nincs más fedezetlen pozi nyitva',
+            'magas de nem túl magas IV',
+            'long lábak 1SD körül',
+            'likvid termékre érdemes, indexek inkább',
+            '30-60 nap',
+            '3-5% balance',
+            '25% jó cél',
+            'OTM long Put',
+            'ATM short Put',
+            'ATM short Call',
+            'OTM long Call',
+        ], 'iron-butterfly'))
+    )
 
 new Choice('faketop', '')
     .addNextChoice(directionalChoice)
-    .addNextChoice(nonDirectional);
+    .addNextChoice(neurtalChoice);
 
 const mainChoices = [
     directionalChoice,
-    nonDirectional
+    neurtalChoice
 ];
 
 
