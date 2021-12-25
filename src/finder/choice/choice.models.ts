@@ -1,8 +1,4 @@
-let i = 0;
-const nextId = () => ++i;
-
 export class Choice {
-    readonly id: number;
     readonly label: string;
     readonly description?: string | string[];
     private _level: number = 0;
@@ -40,8 +36,7 @@ export class Choice {
 
     private parent?: Choice;
 
-    constructor(label: string, description: string, private _checkboxes: string[] = [], private _imagename: string = '') {
-        this.id = nextId();
+    constructor(public readonly id: string, label: string, description: string, private _checkboxes: string[] = [], private _imagename: string = '') {
         this.label = label;
         this.description = description;
         this._nextChoices = [];
@@ -77,7 +72,7 @@ export class Choice {
         this._nextChoices.forEach(c => c.escalateChangeDownwards());
     }
 
-    private escalateChangeUpwards(id: number) {
+    private escalateChangeUpwards(id: string) {
         this._isSelected = true;
 
         if (this.parent) {

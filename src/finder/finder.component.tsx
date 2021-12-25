@@ -8,7 +8,7 @@ export const Finder: React.FC = () => {
     const { id } = useParams();
     const navigate = useNavigate()
 
-    const choice = id ? choiceTree.findChoiceById(Number(id)) : undefined;
+    const choice = id ? choiceTree.findChoiceById(id) : undefined;
 
     if (choice && !choice.isSelected) {
         choice.select();
