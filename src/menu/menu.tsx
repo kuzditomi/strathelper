@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import './menu.scss';
 
 export const Menu: React.FC = () => {
     return (
