@@ -78,6 +78,8 @@ export class Choice {
     }
 
     private escalateChangeUpwards(id: number) {
+        this._isSelected = true;
+
         if (this.parent) {
             this.parent?.escalateChangeUpwards(this.id);
         }

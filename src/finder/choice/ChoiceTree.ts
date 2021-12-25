@@ -201,7 +201,7 @@ neurtalChoice
         ], 'iron-butterfly'))
     )
 
-new Choice('faketop', '')
+const fakeTopChoice = new Choice('faketop', '')
     .addNextChoice(directionalChoice)
     .addNextChoice(neurtalChoice);
 
@@ -211,10 +211,31 @@ const mainChoices = [
 ];
 
 
-export class ChoiceTree {
+class ChoiceTree {
     readonly topChoices: Choice[];
 
     constructor() {
         this.topChoices = mainChoices;
     }
+
+    findChoiceById(id: number): Choice | undefined {
+        return this.findChoice(id, fakeTopChoice);
+    }
+
+    private findChoice(id: number, parent: Choice): Choice | undefined {
+        if (parent.id === id) {
+            return parent;
+        }
+
+        const choice = parent.nextChoices.reduce((expectedChoice: Choice | undefined, child: Choice) => {
+            if (expectedChoice) {
+                return expectedChoice;
+            }
+            return this.findChoice(id, child);
+        }, undefined)
+
+        return choice;
+    }
 }
+
+export const choiceTree = new ChoiceTree();

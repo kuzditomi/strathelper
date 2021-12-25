@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Choice } from "./choice/choice.models";
-import { ChoiceTree } from "./choice/ChoiceTree";
-
-const tree = new ChoiceTree();
+import { choiceTree } from "./choice/ChoiceTree";
 
 interface NodeProps {
     choice: Choice;
@@ -53,7 +51,7 @@ export const Tree: React.FC<TreeProps> = ({ onChoiceSelected }) => {
     return (
         <aside>
             <ul>
-                {tree.topChoices.map(choice => <NodeComponent key={choice.id} choice={choice} onSelect={onChoiceSelected} />)}
+                {choiceTree.topChoices.map(choice => <NodeComponent key={choice.id} choice={choice} onSelect={onChoiceSelected} />)}
             </ul>
         </aside>
     )
