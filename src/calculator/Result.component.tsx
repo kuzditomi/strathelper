@@ -3,6 +3,8 @@ interface ResultProps {
     maxLoss: number;
     maxWin: number;
     profitChance: number;
+    takeProfit: number;
+    stopLoss: number;
 }
 
 const RiskReward: React.FC<{ value: number }> = ({ value }) => {
@@ -17,8 +19,8 @@ const Profit: React.FC<{ value: number }> = ({ value = 0 }) => {
     )
 }
 
-export const Result: React.FC<ResultProps> = ({ maxLoss, maxWin, profitChance }) => {
-    const longTermResult = (profitChance / 100) * maxWin - (1 - (profitChance / 100)) * maxLoss;
+export const Result: React.FC<ResultProps> = ({ maxLoss, maxWin, profitChance, takeProfit, stopLoss }) => {
+    const longTermResult = ((profitChance / 100) * (maxWin*(takeProfit/100))) - ((1 - (profitChance / 100)) * (maxLoss*stopLoss/100));
 
     return (
         <div className="result">

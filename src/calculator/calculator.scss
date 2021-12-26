@@ -1,5 +1,14 @@
 .calculator {
-  padding: 20px;
+  .inputs {
+    display: flex;
+
+    .left {
+      border-right: 1px solid black;
+    }
+
+    border-bottom: 1px solid black;
+  }
+
   .field {
     display: flex;
 
@@ -12,9 +21,5 @@
       display: inline-block;
       width: 140px;
     }
-  }
-
-  .result {
-      border-top: 1px solid black;
   }
 }
