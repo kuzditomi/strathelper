@@ -1,37 +1,65 @@
 import React from 'react';
 interface ResultProps {
-    maxLoss: number;
-    maxWin: number;
-    profitChance: number;
-    takeProfit: number;
-    stopLoss: number;
+  maxLoss: number;
+  maxWin: number;
+  profitChance: number;
+  takeProfit: number;
+  stopLoss: number;
 }
 
 const RiskReward: React.FC<{ value: number }> = ({ value }) => {
-    return (
-        <span style={{ background: 'black', padding: 10, color: `hsl(${value},100%,50%)` }}>{value.toFixed(0)}%</span>
-    )
-}
+  return (
+    <span
+      style={{
+        background: 'black',
+        padding: 10,
+        color: `hsl(${value},100%,50%)`,
+      }}
+    >
+      {value.toFixed(0)}%
+    </span>
+  );
+};
 
 const Profit: React.FC<{ value: number }> = ({ value = 0 }) => {
-    return (
-        <span style={{ background: 'black', padding: 10, color: value > 0 ? 'lime' : value == 0 ? 'grey' : 'red' }}>{value.toFixed(0)} $</span>
-    )
-}
+  return (
+    <span
+      style={{
+        background: 'black',
+        padding: 10,
+        color: value > 0 ? 'lime' : value == 0 ? 'grey' : 'red',
+      }}
+    >
+      {value.toFixed(0)} $
+    </span>
+  );
+};
 
-export const Result: React.FC<ResultProps> = ({ maxLoss, maxWin, profitChance, takeProfit, stopLoss }) => {
-    const longTermResult = ((profitChance / 100) * (maxWin*(takeProfit/100))) - ((1 - (profitChance / 100)) * (maxLoss*stopLoss/100));
+export const Result: React.FC<ResultProps> = ({
+  maxLoss,
+  maxWin,
+  profitChance,
+  takeProfit,
+  stopLoss,
+}) => {
+  const longTermResult =
+    (profitChance / 100) * (maxWin * (takeProfit / 100)) -
+    (1 - profitChance / 100) * ((maxLoss * stopLoss) / 100);
 
-    return (
-        <div className="result">
-            <div className="field">
-                <p>
-                    <b>Reward on risk: <RiskReward value={((maxWin / maxLoss) * 100)} /></b>
-                </p>
-                <p>
-                    <b>Long term profit: <Profit value={longTermResult}/></b>
-                </p>
-            </div>
-        </div>
-    )
-}
+  return (
+    <div className="result">
+      <div className="field">
+        <p>
+          <b>
+            Reward on risk: <RiskReward value={(maxWin / maxLoss) * 100} />
+          </b>
+        </p>
+        <p>
+          <b>
+            Long term profit: <Profit value={longTermResult} />
+          </b>
+        </p>
+      </div>
+    </div>
+  );
+};

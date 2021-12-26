@@ -5,9 +5,14 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prepare": "husky install",
+    "prettier:fix": "prettier --write ."
   },
   "dependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.1.4",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
@@ -17,8 +22,16 @@
     "@types/react": "^17.0.33",
     "@types/react-dom": "^17.0.10",
     "@vitejs/plugin-react": "^1.0.7",
+    "husky": "^7.0.0",
     "sass": "^1.45.1",
     "typescript": "^4.4.4",
     "vite": "^2.7.2"
+  },
+  "volta": {
+    "node": "16.13.1",
+    "npm": "8.3.0"
+  },
+  "lint-staged": {
+    "src/**/*.ts|tsx": "prettier --write"
   }
 }
