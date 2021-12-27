@@ -1,7 +1,7 @@
 const baseURL =
   import.meta.env.VITE_API_ENV == 'local'
     ? 'http://localhost:3001'
-    : 'https://kuzditomi-strathelper.herokuapp.com/';
+    : 'https://kuzditomi-strathelper.herokuapp.com';
 
 interface OptionChain {
   callExpDateMap: Record<string, string>;
