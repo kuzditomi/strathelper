@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getData } from './finder.api';
 
 function useFinder() {
   const [isLoading, setIsLoading] = useState(false);
@@ -9,10 +10,9 @@ function useFinder() {
 
     (async () => {
       try {
-        const res = await fetch('https://kuzditomi-strathelper.herokuapp.com/');
-        const textResult = await res.text();
+        const textResult = await getData('T');
 
-        setText(textResult);
+        setText(Object.keys(textResult.callExpDateMap).join(','));
       } finally {
         setIsLoading(false);
       }
