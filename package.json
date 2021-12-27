@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "homepage": "http://kuzditomi.github.io/strathelper",
   "scripts": {
+    "start": "npm run dev",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",

@@ -1,27 +1,33 @@
-import { Details } from './details.component';
-import { Tree } from './tree.component';
-import './finder.css';
-import { useParams, useNavigate } from 'react-router-dom';
-import { choiceTree } from './choice/ChoiceTree';
+import { useState, useEffect } from 'react';
+
+function useFinder() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    (async () => {
+      try {
+        const res = await fetch('https://kuzditomi-strathelper.herokuapp.com/');
+        const textResult = await res.text();
+
+        setText(textResult);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
+
+  return { isLoading, text };
+}
 
 export const Finder: React.FC = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+  const { isLoading, text } = useFinder();
 
-  const choice = id ? choiceTree.findChoiceById(id) : undefined;
-
-  if (choice && !choice.isSelected) {
-    choice.select();
+  if (isLoading) {
+    return <p>Loading...</p>;
   }
 
-  return (
-    <div className="finder">
-      <Tree
-        onChoiceSelected={(c) => {
-          navigate(`/strats/${c.id}`);
-        }}
-      />
-      <Details choice={choice} />
-    </div>
-  );
+  return <p>{text}</p>;
 };

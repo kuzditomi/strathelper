@@ -7,8 +7,9 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { CalculatorPage } from './calculator/Calculator.component';
-import { Finder } from './finder/finder.component';
+import { Strategies } from './strategies/Strategies.component';
 import { Menu } from './menu/menu';
+import { Finder } from './finder/Finder.component';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Menu />
         <Routes>
           <Route path="/calculator" element={<CalculatorPage />} />
-          <Route path="/strats/:id" element={<Finder />} />
-          <Route path="/strats/" element={<Finder />} />
+          <Route path="/finder/" element={<Finder />} />
+          <Route path="/strats/:id" element={<Strategies />} />
+          <Route path="/strats/" element={<Strategies />} />
           <Route path="/" element={<Navigate to="/strats" replace />} />
         </Routes>
       </BrowserRouter>
