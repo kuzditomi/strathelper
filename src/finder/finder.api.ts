@@ -1,42 +1,48 @@
+import { OptionType, Trade } from '../chart/chart.models';
 import { TMock } from './tmock';
+
 const baseURL =
   import.meta.env.VITE_API_ENV == 'local'
     ? 'http://localhost:3001'
     : 'https://kuzditomi-strathelper.herokuapp.com';
 
-interface OptionChainResult {
-  callExpDateMap: Record<string, string>;
-  putExpDateMap: Record<string, string>;
+
+type OptionResult = {
+  mark: number;
 }
 
-export interface TickerData {
-  expiries: string[];
-  prices: Record<string, number[]>;
+export interface OptionChainResult {
+  symbol: string;
+  callExpDateMap: Record<string, Record<string, OptionResult[]>>;
+  putExpDateMap: Record<string, Record<string, OptionResult[]>>;
 }
 
-export async function getData(ticker: string): Promise<TickerData> {
-  const price = `${baseURL}/price?ticker=${ticker}`;
-  const res = await fetch(price);
-  const chain = (await res.json()) as OptionChainResult;
+export async function getData(ticker: string): Promise<OptionChainResult> {
+  console.log({ ticker })
+  // const price = `${baseURL}/price?ticker=${ticker}`;
+  // const res = await fetch(price);
+  // const chain = (await res.json()) as OptionChainResult;
 
-  // const chain = TMock as unknown as OptionChainResult;
 
-  const expiries = Object.keys(chain.callExpDateMap).map(
-    (t) => t.split(':')[0]
-  );
-  const prices = Object.keys(chain.callExpDateMap).reduce(
-    (priceList, expiry) => {
-      priceList[expiry.split(':')[0]] = Object.keys(
-        chain.callExpDateMap[expiry]
-      ).map((s) => Number(s));
+  const chain = TMock as unknown as OptionChainResult;
+  return chain;
+}
 
-      return priceList;
-    },
-    {} as Record<string, number[]>
-  );
+
+export const getExpiries = (optionChain: OptionChainResult): string[] => Object.keys(optionChain.callExpDateMap);
+
+export const getStrikePrices = (optionChain: OptionChainResult, expiry: string): string[] => Object.keys(optionChain.callExpDateMap[expiry]);
+
+export const getTrade = (optionChain: OptionChainResult, expiry: string, strikePrice: string, optionType: OptionType, amount: number): Trade => {
+  const table = optionType == 'C' ? optionChain.callExpDateMap : optionChain.putExpDateMap;
+  const tradePrice = table[expiry][strikePrice][0].mark;
 
   return {
-    expiries,
-    prices,
-  };
+    underlying: optionChain.symbol,
+    position: amount,
+    expiration: new Date(expiry.split(':')[0]),
+    optionType,
+    strikePrice: Number(strikePrice),
+    tradePrice: tradePrice // 
+  }
 }
