@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { OptionType, Trade, TradeGroup } from '../chart/chart.models';
-import { OptionExpiryChart } from '../chart/OptionExpiryChart.component';
+import { ExpiryChartD3 } from '../chart/ChartD3.component';
 import { getData, getExpiries, getStrikePrices, getTrade, OptionChainResult } from './finder.api';
 import './finder.scss';
 
@@ -12,6 +12,7 @@ function useFinder(ticker: string) {
   useEffect(() => {
     if (!ticker) {
       setOptionChain(undefined);
+      setExpiries(undefined);
       return;
     }
     setIsLoading(true);
@@ -62,6 +63,18 @@ export const Finder: React.FC = () => {
 
   const addOption = function (id: string, type: OptionType, strike: string, amount: number = 1) {
     const optionTrade = getOption(expiry, strike, type, amount)
+
+    if (options[id]) {
+      options[id].position += amount;
+      if (options[id].position === 0) {
+        const { [id]: optionToRemove, ...newOptions } = options;
+        setOptions(newOptions);
+        return;
+      }
+
+      setOptions({...options});
+      return;
+    }
 
     setOptions({
       ...options,
@@ -119,6 +132,7 @@ export const Finder: React.FC = () => {
       </td>
     );
   };
+
   const renderPrices = () => {
     if (!expiry) {
       return null;
@@ -176,7 +190,7 @@ export const Finder: React.FC = () => {
 
     return (
       <div className="chart">
-        <OptionExpiryChart chartData={tradeGroup} />
+        <ExpiryChartD3 chartData={tradeGroup}/>
       </div>
     );
   }
@@ -191,6 +205,7 @@ export const Finder: React.FC = () => {
         <button
           onClick={() => {
             tickerRef?.current?.value && setTicker(tickerRef.current.value);
+            setExpiry('');
           }}
         >
           GO
