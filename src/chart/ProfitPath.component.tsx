@@ -23,16 +23,19 @@ export const ProfitPath: React.FC<ProfitPathProps> = ({ data, xScale, yScale }) 
 
         d3.select(pathRef.current)
             .transition()
-            .attr('d', line(data));
+            .attr('d', line(data))
+
     }, [data]);
 
     return (
-        <path
-            ref={pathRef}
-            transform="translate(5,0)"
-            fill="none"
-            stroke="blue"
-            strokeWidth={2}
-        />
+        <>
+            <path
+                ref={pathRef}
+                fill="none"
+                stroke="blue"
+                strokeWidth={2}
+            />
+            <p>hello</p>
+        </>
     );
 }
