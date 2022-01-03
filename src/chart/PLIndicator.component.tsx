@@ -18,7 +18,7 @@ export const PLIndicator: React.FC<XAxisProps> = ({ svgRef, data, xScale, yScale
 
     useEffect(() => {
         // TODO: handle unsubscription
-        
+
         if (!svgRef.current) {
             return;
         }
@@ -30,6 +30,7 @@ export const PLIndicator: React.FC<XAxisProps> = ({ svgRef, data, xScale, yScale
 
         var bisect = d3.bisector((d: any) => d[0]).left;
 
+        // d3.on will remove previous handlers first, so no need to unsubscribe
         d3.select(svgRef.current)
             .on('mouseenter', () => {
                 setIsVisible(true);
@@ -42,7 +43,6 @@ export const PLIndicator: React.FC<XAxisProps> = ({ svgRef, data, xScale, yScale
                 const i = bisect(data, x0, 1);
 
                 const [x, y] = [xScale(data[i][0]), yScale(data[i][1])];
-
                 line.attr('x1', x).attr('x2', x)
                 circle.attr('cx', x).attr('cy', y);
                 text
@@ -57,7 +57,7 @@ export const PLIndicator: React.FC<XAxisProps> = ({ svgRef, data, xScale, yScale
                     .attr('height', textWidth.height + 10)
                     .attr('transform', `translate(${-(textWidth.width + 10) / 2}, ${-(textWidth.height + 10 + 10)})`);
             });
-    }, [])
+    }, [data, isVisible, setIsVisible])
 
     if (!svgRef.current) {
         return null;
@@ -67,7 +67,6 @@ export const PLIndicator: React.FC<XAxisProps> = ({ svgRef, data, xScale, yScale
         <g
             ref={gRef}
             visibility={isVisible ? 'visible' : 'hidden'}
-
         >
             <line ref={lineRef}
                 stroke="grey"
